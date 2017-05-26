@@ -1,0 +1,24 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Welcome {{ $ctrl.currentUser() ?  $ctrl.currentUser() : "Guest"}}</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li ng-show="$ctrl.isLoggedIn()"><a ui-sref="home">Home</a></li>
+        <li ng-show="$ctrl.isLoggedIn()"><a ui-sref="profile">Profile</a></li>
+        <li ng-show="$ctrl.isLoggedIn()"><a ui-sref="history">My History</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li ng-show="$ctrl.isLoggedIn()"><a href="#" ng-click="$ctrl.logOut()"><span class="glyphicon glyphicon-log-out"></span>Log Out</a></li>
+        <li ng-hide="$ctrl.isLoggedIn()"><a ui-sref="login"><span class="glyphicon glyphicon-log-in"></span> Log In</a></li>
+        <li ng-hide="$ctrl.isLoggedIn()"><a ui-sref="register"><span class="glyphicon glyphicon-user"></span> Register</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <base href="/">
+  <title>Vedio On Demand</title>
+  <link href="nmd/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <link href="https://vjs.zencdn.net/5.8.8/video-js.css" rel="stylesheet">
+  <link href="nmd/ng-toast/dist/ngToast.min.css" rel="stylesheet">
+  <link href="nmd/angularjs-datepicker/dist/angular-datepicker.min.css" rel="stylesheet">
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+  <script type="text/javascript" src="nmd/bootstrap/dist/js/bootstrap.js"></script>
+  <script type="text/javascript" src="nmd/moment/min/moment.min.js"></script>
+  <script type="text/javascript" src="nmd/angular/angular.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.0/angular-ui-router.min.js"></script>
+  <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+  <script type="text/javascript" src="nmd/angular-sanitize/angular-sanitize.min.js"></script>
+  <script type="text/javascript" src="nmd/ng-toast/dist/ngToast.min.js"></script>
+  <script type="text/javascript" src="nmd/angularjs-datepicker/dist/angular-datepicker.min.js"></script>
+  <script src="nmd/ng-file-upload/dist/ng-file-upload-shim.min.js"></script> <!-- for no html5 browsers support -->
+  <script src="nmd/ng-file-upload/dist/ng-file-upload.min.js"></script>
+  <!-- inject:js -->
+  <script src="js/app.module.js"></script>
+  <script src="js/route-config.js"></script>
+  <script src="js/factories/auth.factory.js"></script>
+  <script src="js/factories/posts.factory.js"></script>
+  <script src="js/factories/tokenInjector.factory.js"></script>
+  <script src="js/controllers/history.controller.js"></script>
+  <script src="js/controllers/main.controller.js"></script>
+  <script src="js/components/footer/footer.component.js"></script>
+  <script src="js/components/header/header.component.js"></script>
+  <script src="js/components/login/login.component.js"></script>
+  <script src="js/components/navigation/navigation.component.js"></script>
+  <script src="js/components/profile/profile.component.js"></script>
+  <script src="js/components/register/register.component.js"></script>
+  <!-- endinject -->
+</head>
+
+<body ng-app="VOD">
+  <div class="container-fluid">
+    <header></header>
+    <div class="row">
+      <div class="text-center">
+        <ui-view></ui-view>
+      </div>
+    </div>
+    <footer footer-text="Copyright@2017 Made with Love by Chetan"></footer>
+    <toast></toast>
+  </div>
+</body>
+
+</html>

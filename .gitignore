@@ -1,0 +1,11 @@
+# exclude everything
+public/uploads/*
+
+# exception to the rule
+!public/uploads/.gitkeep
+
+.DS_Store
+
+node_modules
+
+data

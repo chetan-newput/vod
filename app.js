@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 
 var app = express();
 console.log("app start");
-
+console.log("process.env.MONGO_URI :: ",process.env);
 var mongoose = require('mongoose');
 var passport = require('passport');
 //connect MongoDB
@@ -78,6 +78,6 @@ app.use(function(err, req, res, next) {
     });
 });
 
-app.listen(process.env.PORT ? process.env.PORT : 3000);
+//app.listen(process.env.PORT ? process.env.PORT : 3000);
 
 module.exports = app;

@@ -83,11 +83,20 @@ gulp.task('set-env', function () {
     env({
       vars: {
         //MONGO_URI: "mongodb://chetan:download1@ds133279.mlab.com:33279/vod",
-        MONGO_URI: "mongodb://chetan:chet@n2109@ds155811.mlab.com:55811/product-newput",
+        MONGO_URI: "mongodb://chetan:@ds155811.mlab.com:55811/product-newput",
         PORT: 9001
       }
     });
   }
 });
+
+gulp.task('heroku-build',['inject-files'], function(){
+  env({
+      vars: {
+        MONGO_URI: "mongodb://chetan:@ds155811.mlab.com:55811/product-newput",
+        PORT: 3000
+      }
+    });
+})
 
 gulp.task('default', ['set-env','server', 'watch']);

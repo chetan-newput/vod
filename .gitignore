@@ -19,3 +19,6 @@ data
 
 #vs intellisense config file
 jsconfig.json
+
+#debug log file
+npm-debug.log

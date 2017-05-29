@@ -22,11 +22,18 @@ function updateProfile(req, res, next) {
     msg: "",
     data: null
   };
-  var user = req.body.user;
-  if (user.dob) {
-    user.dob = new Date(user.dob).toISOString();
+  var user = {};
+  console.log("req.params :: ", req.params,"req.body :: ", req.body, "req.files :: ", req.files);
+  //user["dob"] = req.body.dob;
+
+  Object.keys(req.body).forEach(function(key) {
+    console.log(key, req.body[key]);
+    user[key] = req.body[key];
+  });
+
+  if (user["dob"]) {
+    user["dob"] = new Date(user["dob"]).toISOString();
   }
-  console.log("req.body :: ", req.body, "req.files :: ", req.files);
 
   if (req.files && req.files.profilePic) {
     // get the temporary location of the file
@@ -35,6 +42,11 @@ function updateProfile(req, res, next) {
     var fileName = req.files.profilePic.name;
     var file_ext = fileName.substr((Math.max(0, fileName.lastIndexOf(".")) || Infinity) + 1);
     var newFileName = shortid.generate()+'.'+ file_ext;
+    var oldProfilePicState = "";
+    var oldProfilePic = "";
+    if(user["profilePic"]){
+      oldProfilePic = "./public"+user["profilePic"];
+    }
     var target_path = './public/uploads/' + newFileName;
     user["profilePic"] = '/uploads/' + newFileName;
     // move the file from the temporary location to the intended location
@@ -44,6 +56,16 @@ function updateProfile(req, res, next) {
         response.data = err;
         res.json(response);
       } else {
+
+        //delete old profile pic synchronously
+        if(oldProfilePic){
+          oldProfilePicState = fs.statSync( oldProfilePic );
+          console.log("oldProfilePicState : ",oldProfilePicState);
+          if(oldProfilePicState.size && oldProfilePicState.size > 0){
+            fs.unlinkSync(oldProfilePic);
+          }
+        }
+
         // delete the temporary file, so that the explicitly set temporary upload dir does not get filled with unwanted files
         fs.unlink(tmp_path, function () {
           if (err) {

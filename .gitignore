@@ -4,8 +4,18 @@ public/uploads/*
 # exception to the rule
 !public/uploads/.gitkeep
 
+# mac file
+*.DS_Store
 .DS_Store
 
+# node_modules folder
 node_modules
 
+# mongo db data folder
 data
+
+# debug config file
+.vscode
+
+#vs intellisense config file
+jsconfig.json

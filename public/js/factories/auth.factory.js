@@ -25,7 +25,12 @@
         };
 
         function updateUserProfile(userProfile) {
-          return $http.post('/myprofile', userProfile).then(function (response) {
+          return $http.post('/myprofile', userProfile, {
+            transformRequest: angular.identity,
+            headers: {
+              'Content-Type': undefined
+            }
+          }).then(function (response) {
             return response;
           }, function (error) {
             return error;

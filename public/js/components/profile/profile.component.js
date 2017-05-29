@@ -18,60 +18,33 @@
 
     function updateProfile(userProfile) {
 
-      if (ctrl.profile_form.profilePic && ctrl.profilePic) {
+      var formData = new FormData();
+      angular.forEach(ctrl.user, function (value, key) {
+        formData.append(key, value);
+      });
 
-        Upload.upload({
-          url: '/myprofile',
-          data: {
-            profilePic: ctrl.profilePic,
-            user: ctrl.user
-          }, //pass file as data, should be user ng-model
-          /*headers: {
-            'Authorization': 'Bearer ' + auth.getToken()
-          }*/
-        }).then(function (resp) { //upload function returns a promise
-          console.log("Response data :: ", resp.data);
-          if (resp.data.success) { //validate success
+      if (ctrl.profile_form.profilePic && ctrl.profilePic) {
+        formData.append('profilePic', ctrl.profilePic);
+      }
+
+      auth.updateUserProfile(formData)
+        .then(function (response) {
+          console.log("component updateProfile data :", response.dat);
+          if (response.data.success) {
             ngToast.success({
               content: 'User profile has been successfully updated.'
             });
-            console.log('Success file successfully uploaded.');
           } else {
             ngToast.danger({
               content: 'Opps! something wrong happend!'
             });
-            console.log('an error occured');
           }
-        }, function (errorResp) { //catch error
-          console.log("Error Response data :: ", errorResp);
+        })
+        .catch(function (error) {
           ngToast.danger({
             content: 'Opps! something wrong happend!'
           });
         });
-
-      } else {
-
-        auth.updateUserProfile({
-            user: ctrl.user
-          })
-          .then(function (response) {
-            console.log("component updateProfile data :", response.dat);
-            if (response.data.success) {
-              ngToast.success({
-                content: 'User profile has been successfully updated.'
-              });
-            } else {
-              ngToast.danger({
-                content: 'Opps! something wrong happend!'
-              });
-            }
-          })
-          .catch(function (error) {
-            ngToast.danger({
-              content: 'Opps! something wrong happend!'
-            });
-          });
-      }
     }
 
     function onInit() {

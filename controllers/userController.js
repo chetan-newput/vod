@@ -52,6 +52,8 @@ function updateProfile(req, res, next) {
     // move the file from the temporary location to the intended location
     fs.rename(tmp_path, target_path, function (err) {
       if (err) {
+        console.log('err on rename target image :  ', err);
+        response.success = false;
         response.msg = "Profile image isn't uploaded successfully, Please try again!";
         response.data = err;
         res.json(response);
@@ -69,6 +71,8 @@ function updateProfile(req, res, next) {
         // delete the temporary file, so that the explicitly set temporary upload dir does not get filled with unwanted files
         fs.unlink(tmp_path, function () {
           if (err) {
+            console.log('err on remove tmp image :  ', err);
+            response.success = false;
             response.msg = "Profile image isn't uploaded successfully, Please try again!";
             response.data = err;
             res.json(response);
@@ -144,7 +148,7 @@ function myHistory(req, res, next) {
   }, function (err, hdata) {
     console.log("myHistory err :: ",err,"myHistory hdata :: ", hdata)
     if (err) {
-      conole.log('err in find user history:  ', err);
+      console.log('err in find user history:  ', err);
       return next(err);
     } else {
       if(hdata && hdata.user_history){

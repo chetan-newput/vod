@@ -80,12 +80,12 @@ app.use(function(err, req, res, next) {
 });
 
 //app.listen(process.env.PORT ? process.env.PORT : 3000);
-if(app.get('port') === undefined){
-  console.log("in app.js port ",app.get('port'));
+//if(app.get('port') === undefined){
+  console.log("in app.js port ",app.get('port'), "process.env.PORT : ",process.env.PORT);
   app.set('port', (process.env.PORT || 3000));
   var server = app.listen(app.get('port'), function() {
     console.log("Express server listening on port ",server.address().port);
     debug('Express server listening on port ' + server.address().port);
   });
-}
+//}
 module.exports = app;

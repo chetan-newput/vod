@@ -20,7 +20,9 @@
 
       var formData = new FormData();
       angular.forEach(ctrl.user, function (value, key) {
-        formData.append(key, value);
+        if((key != "_id") && (key != "username")) {
+          formData.append(key, value);
+        }
       });
 
       if (ctrl.profile_form.profilePic && ctrl.profilePic) {

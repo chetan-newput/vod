@@ -24,11 +24,9 @@ function updateProfile(req, res, next) {
     data: null
   };
   var user = {};
-  console.log("req.params :: ", req.params,"req.body :: ", req.body, "req.files :: ", req.files);
-  //user["dob"] = req.body.dob;
+  console.log("req.payload :: ", req.payload, "req.body :: ", req.body, "req.files :: ", req.files);
 
-  Object.keys(req.body).forEach(function(key) {
-    console.log(key, req.body[key]);
+  Object.keys(req.body).forEach(function (key) {
     user[key] = req.body[key];
   });
 
@@ -42,11 +40,11 @@ function updateProfile(req, res, next) {
     // set where the file should actually exists - in this case it is in the "images" directory
     var fileName = req.files.profilePic.name;
     var file_ext = fileName.substr((Math.max(0, fileName.lastIndexOf(".")) || Infinity) + 1);
-    var newFileName = shortid.generate()+'.'+ file_ext;
+    var newFileName = shortid.generate() + '.' + file_ext;
     var oldProfilePicState = "";
     var oldProfilePic = "";
-    if(user["profilePic"]){
-      oldProfilePic = "./public"+user["profilePic"];
+    if (user["profilePic"]) {
+      oldProfilePic = "./public" + user["profilePic"];
     }
     var target_path = './public/uploads/' + newFileName;
     user["profilePic"] = '/uploads/' + newFileName;
@@ -62,10 +60,10 @@ function updateProfile(req, res, next) {
       } else {
 
         //delete old profile pic synchronously
-        if(oldProfilePic){
-          oldProfilePicState = fs.statSync( oldProfilePic );
-          console.log("oldProfilePicState : ",oldProfilePicState);
-          if(oldProfilePicState.size && oldProfilePicState.size > 0){
+        if (oldProfilePic) {
+          oldProfilePicState = fs.statSync(oldProfilePic);
+          console.log("oldProfilePicState : ", oldProfilePicState);
+          if (oldProfilePicState.size && oldProfilePicState.size > 0) {
             fs.unlinkSync(oldProfilePic);
           }
         }
@@ -80,7 +78,7 @@ function updateProfile(req, res, next) {
             res.json(response);
           } else {
             User.update({
-              "_id": user._id
+              "_id": req.payload._id
             }, user, {
               multi: false
             }, function (err, data) {
@@ -102,7 +100,7 @@ function updateProfile(req, res, next) {
   } else {
 
     User.update({
-      "_id": user._id
+      "_id": req.payload._id
     }, user, {
       multi: true
     }, function (err, data) {
@@ -148,12 +146,12 @@ function myHistory(req, res, next) {
   History.findOne({
     "user": req.payload._id
   }, function (err, hdata) {
-    console.log("myHistory err :: ",err,"myHistory hdata :: ", hdata)
+    console.log("myHistory err :: ", err, "myHistory hdata :: ", hdata)
     if (err) {
       console.log('err in find user history:  ', err);
       return next(err);
     } else {
-      if(hdata && hdata.user_history){
+      if (hdata && hdata.user_history) {
         res.json(hdata.user_history);
       } else {
         res.json([]);

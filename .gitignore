@@ -22,3 +22,6 @@ jsconfig.json
 
 #debug log file
 npm-debug.log
+
+#heroku local env file to set config var
+.env

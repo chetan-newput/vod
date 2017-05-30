@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var fs = require('fs');
 var shortid = require('shortid');
+var mv = require('mv');
 
 var History = mongoose.model('History');
 var User = mongoose.model('User');
@@ -50,9 +51,10 @@ function updateProfile(req, res, next) {
     var target_path = './public/uploads/' + newFileName;
     user["profilePic"] = '/uploads/' + newFileName;
     // move the file from the temporary location to the intended location
-    fs.rename(tmp_path, target_path, function (err) {
+    //fs.rename(tmp_path, target_path, function (err) {
+    mv(tmp_path, target_path, function (err) {
       if (err) {
-        console.log('err on rename target image :  ', err);
+        console.log('err on move target image :  ', err);
         response.success = false;
         response.msg = "Profile image isn't uploaded successfully, Please try again!";
         response.data = err;

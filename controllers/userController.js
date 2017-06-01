@@ -127,7 +127,7 @@ function getProfile(req, res, next) {
     "_id": req.payload._id
   }, select, function (err, udata) {
     if (err) {
-      conole.log('err in check username:  ', err);
+      conole.log('err in check email:  ', err);
       return next(err);
     }
     console.log('user data : ', udata);
@@ -200,27 +200,27 @@ function renderHistory(req, res, next) {
 };
 
 function register(req, res, next) {
-  if (!req.body.username || !req.body.password) {
+  if (!req.body.email || !req.body.password) {
     return res.status(400).json({
       message: 'Please fill out all fields'
     });
   }
 
   User.findOne({
-    "username": req.body.username
+    "email": req.body.email
   }, function (err, udata) {
     if (err) {
-      conole.log('err in check username:  ', err);
+      conole.log('err in check email:  ', err);
       return next(err);
     }
     console.log('history data : ', udata); //this shows the correct user id
     if (udata) {
       return res.status(400).json({
-        message: 'A User already exist with this username, please try something diffrent.'
+        message: 'A User already exist with this email, please try something diffrent.'
       });
     } else {
       var user = new User();
-      user.username = req.body.username;
+      user.email = req.body.email;
       user.setPassword(req.body.password)
       user.save(function (err) {
         if (err) {
@@ -239,15 +239,15 @@ function renderIndex(req, res, next) {
 };
 
 function login(req, res, next) {
-  if (!req.body.username || !req.body.password) {
+  if (!req.body.email || !req.body.password) {
     return res.status(400).json({
       message: 'Please fill out all fields'
     });
   }
 
   passport.authenticate('local', function (err, user, info) {
-    console.log("In post login err : ", err, "user : ", user);
     if (err) {
+      console.log("In post login err : ", err);
       return next(err);
     }
 

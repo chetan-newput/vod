@@ -20,7 +20,7 @@
 
       var formData = new FormData();
       angular.forEach(ctrl.user, function (value, key) {
-        if((key != "_id") && (key != "username")) {
+        if((key != "_id") && (key != "email")) {
           formData.append(key, value);
         }
       });

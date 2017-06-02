@@ -17,7 +17,7 @@ router.get('/app', function (req, res, next) {
   console.log(newRes);
   //res.json(newRes);
   // res.status(200).send(challange);
-  res.status(200).send(challange);
+  res.send(JSON.parse(req.param('hub.challenge')));
 });
 
 module.exports = router;

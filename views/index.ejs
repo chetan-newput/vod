@@ -18,7 +18,8 @@
   <script type="text/javascript" src="nmd/angular-sanitize/angular-sanitize.min.js"></script>
   <script type="text/javascript" src="nmd/ng-toast/dist/ngToast.min.js"></script>
   <script type="text/javascript" src="nmd/angularjs-datepicker/dist/angular-datepicker.min.js"></script>
-  <script src="nmd/ng-file-upload/dist/ng-file-upload-shim.min.js"></script> <!-- for no html5 browsers support -->
+  <script src="nmd/ng-file-upload/dist/ng-file-upload-shim.min.js"></script>
+  <!-- for no html5 browsers support -->
   <script src="nmd/ng-file-upload/dist/ng-file-upload.min.js"></script>
   <!-- inject:js -->
   <script src="js/app.module.js"></script>
@@ -48,6 +49,28 @@
     <footer footer-text="Copyright@2017 Made with Love by Chetan"></footer>
     <toast></toast>
   </div>
+  <!-- Facebook SDK -->
+  <script>
+    window.fbAsyncInit = function () {
+      FB.init({
+        appId: '1462840080458882',
+        cookie: true,
+        xfbml: true,
+        version: 'v2.8'
+      });
+      FB.AppEvents.logPageView();
+    };
+
+    (function (d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) { return; }
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+  </script>
+  <!-- End Facebook SDK -->
 </body>
 
 </html>

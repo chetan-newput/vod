@@ -16,6 +16,10 @@ router.post('/myprofile', auth, multipartMiddleware, userController.updateProfil
 
 router.get('/myprofile', auth, userController.getProfile);
 
+router.get('/facebook-login', userController.facebookLoginRender);
+
+router.get('/facebook-connect', userController.facebookConnect);
+
 router.get('/*', userController.renderIndex);
 
 router.post('/history/', auth, userController.renderHistory);

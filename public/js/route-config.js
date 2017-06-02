@@ -54,6 +54,13 @@
             requireLogin: false
           }
         })
+        /*.state('facebook-login', {
+          url: '/facebook-login',
+          templateUrl: '/js/template/login.html',
+          data: {
+            requireLogin: false
+          }
+        })*/
         .state('register', {
           url: '/register',
           templateUrl: '/js/template/register.html',

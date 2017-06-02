@@ -14,8 +14,34 @@ var userController = {
   renderHistory: renderHistory,
   myHistory: myHistory,
   getProfile: getProfile,
-  updateProfile: updateProfile
+  updateProfile: updateProfile,
+  facebookLoginRender: passport.authenticate('facebook',{scope : 'email'}),
+  facebookConnect: facebookConnect 
 };
+
+function facebookLoginRender(req, res, next){
+  passport.authenticate('facebook',{scope : 'email'});
+}
+
+function facebookConnect(req, res, next){
+  passport.authenticate('facebook', function (err, user, info) {
+    if (err) {
+      console.log("In post login err : ", err);
+      return next(err);
+    }
+
+    if (user) {
+      var new_token = user.generateJWT();
+      console.log("new_token genrated by user : ", new_token);
+      /*return res.json({
+        token: new_token
+      });*/
+      res.redirect('/home');
+    } else {
+      return res.status(401).json(info);
+    }
+  })(req, res, next);
+}
 
 function updateProfile(req, res, next) {
   var response = {

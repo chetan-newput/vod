@@ -26,6 +26,7 @@ require('./models/Users');
 require('./config/passport');
 //console.log("app step3");
 var routes = require('./routes/index');
+var restRoutes = require('./routes/rest');
 var users = require('./routes/users');
 //console.log("app step4");
 // view engine setup
@@ -45,6 +46,7 @@ app.use('/nmd', express.static(path.join(__dirname, 'node_modules')));
 
 app.use(passport.initialize());
 
+app.use('/rest', restRoutes);
 app.use('/', routes);
 app.use('/users', users);
 //console.log("app step7");

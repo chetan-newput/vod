@@ -9,7 +9,7 @@ router.get('/app', function (req, res, next) {
   if (verify_token === '12345678' && req.param('hub.challenge')) {
     challange = parseInt(req.param('hub.challenge'));
   }
-  res.send({
+  res.json({
     statusCode: 200,
     body: challange
   });

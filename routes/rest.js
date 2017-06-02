@@ -22,7 +22,7 @@ router.post('/app', function (req, res, next) {
   // } else {
   //   res.sendStatus(400);
   // }
-  
+  res.send("test");
 });
 
 module.exports = router;

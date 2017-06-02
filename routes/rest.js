@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var curl = require('curlrequest');
+var request = require('request');
 
 router.get('/app', function (req, res, next) {
   console.log("in rest/app req.params :: ",
@@ -27,10 +28,10 @@ router.post('/app', function (req, res, next) {
   var options = {
     url: 'https://graph.facebook.com/v2.9/me/messages?access_token=' + accessToken,
     method: 'POST',
-    headers: {
-      "Content-Type": "application/json"
-    },
-    data:{
+    // headers: {
+    //   "Content-Type": "application/json"
+    // },
+    json: {
             "recipient":{
                 "id":"1242112299247499"
             },
@@ -40,7 +41,7 @@ router.post('/app', function (req, res, next) {
           }
   };
 
-  curl.request(options, function (err, result) {
+  request(options, function (err, result) {
     //file is a Buffer 
     if(err){
       console.log("curl error :: ",err);

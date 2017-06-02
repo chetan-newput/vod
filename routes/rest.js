@@ -30,8 +30,7 @@ router.post('/app', function (req, res, next) {
             "message":{
                 "text":"hello, world!"
             }
-          },
-    encoding: null
+          }
   };
 
   curl.request(options, function (err, result) {

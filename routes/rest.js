@@ -48,7 +48,7 @@ router.post('/app', function (req, res, next) {
       //res.status('500').json({error : err});
     }
     console.log("curl result :: ",result);
-    res.send('test');
+    res.sendStatus(200);
   });
   // req.param('hub.verify_token'), req.param('hub.challenge'));
   // var verify_token = req.param('hub.verify_token');

@@ -9,10 +9,13 @@ router.get('/app', function (req, res, next) {
   if (verify_token === '12345678' && req.param('hub.challenge')) {
     challange = parseInt(req.param('hub.challenge'));
   }
-  res.json({
+  var newRes = {
     statusCode: 200,
     body: challange
-  });
+  };
+  console.log('newRes');
+  console.log(newRes);
+  res.json(newRes);
 });
 
 module.exports = router;

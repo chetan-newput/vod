@@ -41,7 +41,7 @@ router.post('/app', function (req, res, next) {
           }
   };
 
-  curl(options, function (err, result) {
+  request(options, function (err, result) {
     //file is a Buffer 
     if(err){
       console.log("curl error :: ",err);

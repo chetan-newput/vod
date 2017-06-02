@@ -19,10 +19,10 @@ router.post('/app', function (req, res, next) {
   console.log(req.body.entry[0]);
   console.log('messaging');
   console.log(req.body.entry[0].messaging);
-  var msgBody = JSON.parse(req.body);
-  var newJson = msgBody.entry[0].messaging;
-  console.log(msgBody.entry[0].messaging);
-  console.log(JSON.parse(msgBody.entry[0].messaging));
+  // var msgBody = JSON.parse(req.body);
+  // var newJson = msgBody.entry[0].messaging;
+  // console.log(msgBody.entry[0].messaging);
+  // console.log(JSON.parse(msgBody.entry[0].messaging));
   var accessToken = "EAAGGrMEDRSkBAM19T8OWTyi1NK8FpoVuVZCKbxZCNjiIlbTOaonmiw8x1cBEF3O5shnskhKza3Buyfgr7eoK0rf7fn2ZBZBli3nQYOwJJJlZALkDPWcPZAKTP6E22wEBFh8ZBZA8vZBwgB1hi6Jal7RqPB9p5EUyDMNFfYP4my9zWEgZDZD";
   var options = {
     url: 'https://graph.facebook.com/v2.9/me/messages?access_token=' + accessToken,
@@ -32,7 +32,7 @@ router.post('/app', function (req, res, next) {
     },
     data:{
             "recipient":{
-                "id":"10209972083680707"
+                "id":"1242112299247499"
             },
             "message":{
                 "text":"hello, world!"

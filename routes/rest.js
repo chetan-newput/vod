@@ -18,7 +18,7 @@ router.post('/app', function (req, res, next) {
     req.params, "res.body :: ", JSON.parse(req.body), "req.query :: ", req.query);
   var accessToken = "EAAGGrMEDRSkBAM19T8OWTyi1NK8FpoVuVZCKbxZCNjiIlbTOaonmiw8x1cBEF3O5shnskhKza3Buyfgr7eoK0rf7fn2ZBZBli3nQYOwJJJlZALkDPWcPZAKTP6E22wEBFh8ZBZA8vZBwgB1hi6Jal7RqPB9p5EUyDMNFfYP4my9zWEgZDZD";
   var options = {
-    url: 'https://graph.facebook.com/v2.6/me/messages?access_token=' + accessToken,
+    url: 'https://graph.facebook.com/v2.9/me/messages?access_token=' + accessToken,
     method: 'POST',
     headers: {
       "Content-Type": "application/json"
@@ -41,6 +41,7 @@ router.post('/app', function (req, res, next) {
       //res.status('500').json({error : err});
     }
     console.log("curl result :: ",result);
+    res.send('test');
   });
   // req.param('hub.verify_token'), req.param('hub.challenge'));
   // var verify_token = req.param('hub.verify_token');
@@ -49,7 +50,7 @@ router.post('/app', function (req, res, next) {
   // } else {
   //   res.sendStatus(400);
   // }
-  // res.send("test");
+  //res.send("test");
 });
 
 module.exports = router;

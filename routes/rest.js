@@ -10,7 +10,7 @@ router.get('/app', function (req, res, next) {
     challange = parseInt(req.param('hub.challenge'));
   }
   var newRes = {
-    statusCode: 200,
+    status: 200,
     body: challange
   };
   console.log('newRes');

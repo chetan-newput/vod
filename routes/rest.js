@@ -16,6 +16,7 @@ router.get('/app', function (req, res, next) {
   console.log('newRes');
   console.log(newRes);
   //res.json(newRes);
+  // res.status(200).send(challange);
   res.status(200).send(challange);
 });
 

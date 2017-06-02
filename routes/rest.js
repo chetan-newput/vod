@@ -16,7 +16,8 @@ router.get('/app', function (req, res, next) {
 router.post('/app', function (req, res, next) {
   console.log("in post rest/app req.params :: ",
     req.params, "res.body :: ", req.body, "req.query :: ", req.query);
-  console.log(JSON.parse(req.body));
+  var msgBody = JSON.parse(req.body);
+  console.log(JSON.parse(msgBody.entry[0].messaging));
   var accessToken = "EAAGGrMEDRSkBAM19T8OWTyi1NK8FpoVuVZCKbxZCNjiIlbTOaonmiw8x1cBEF3O5shnskhKza3Buyfgr7eoK0rf7fn2ZBZBli3nQYOwJJJlZALkDPWcPZAKTP6E22wEBFh8ZBZA8vZBwgB1hi6Jal7RqPB9p5EUyDMNFfYP4my9zWEgZDZD";
   var options = {
     url: 'https://graph.facebook.com/v2.9/me/messages?access_token=' + accessToken,

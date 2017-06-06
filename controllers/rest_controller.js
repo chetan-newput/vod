@@ -1,6 +1,9 @@
 var request = require('request');
+var ConversationV1 = require('watson-developer-cloud/conversation/v1');
+//var prompt = require('prompt-sync')();
 
 var webhookConfig = require('../config/webhook_config');
+var authConfig = require('../config/auth');
 
 var restController = {
   verifyToken: verifyToken,
@@ -20,19 +23,54 @@ function verifyToken(req, res, next) {
 }
 
 function handleMessageResponse(messageData) {
-  console.log('handlemessageResponse :: ', messageData);
-  var options = {
-    url: 'https://graph.facebook.com/v2.9/me/messages?access_token=' + webhookConfig.accessToken,
-    method: 'POST',
-    json: messageData
-  };
-
-  request(options, function (err, result) {
-    if (err) {
-      console.log("curl error :: ", err);
-    }
-    //console.log("curl result :: ", result);
+  console.log('handlemessageResponse :: ', messageData, "authConfig.watson :: ", authConfig.watson);
+  //call the watson conversation service
+  var conversation = new ConversationV1({
+    username: authConfig.watson.username,
+    password: authConfig.watson.password,
+    version_date: ConversationV1.VERSION_DATE_2017_04_21
   });
+
+  conversation.message({
+    input: {
+      text: messageData.message.text
+    },
+    workspace_id: authConfig.watson.workspaceId
+  }, function (err, response) {
+    if (err) {
+      console.error("watson err ::", err);
+      messageData.message.text = "Sorry I'm not getting you , please try again!";
+    } else {
+      console.log("watson response ::", JSON.stringify(response, null, 2));
+      if (response.output.text.length != 0) {
+        messageData.message.text = response.output.text[0];
+      }
+
+      // Prompt for the next round of input.
+      //var newMessageFromUser = prompt('>> ');
+      // Send back the context to maintain state.
+      /*conversation.message({
+        input: { text: newMessageFromUser },
+        context : response.context,
+      }, function(err,resp){});*/
+    }
+
+    //send message to fb messanger 
+    var options = {
+      url: 'https://graph.facebook.com/v2.9/me/messages?access_token=' + webhookConfig.accessToken,
+      method: 'POST',
+      json: messageData
+    };
+
+    request(options, function (err, result) {
+      if (err) {
+        console.log("curl error :: ", err);
+      }
+      //console.log("curl result :: ", result);
+    });
+    //End send message to fb messanger
+  });
+  //End call the watson conversation service
 };
 
 
@@ -55,27 +93,27 @@ function handleEventRequest(req, res, next) {
         if (event.message) {
           var messageBody = "";
 
-          if(event.message.text){
+          if (event.message.text) {
             messageBody = event.message.text;
           }
-          
-          if(event.message.attachments){
+
+          if (event.message.attachments) {
             event.message.attachments.forEach(function (attachment) {
-              console.log('event.attachments :: ',attachment); 
-              if(attachment.type == 'image'){
-                if(attachment.payload.sticker_id){
+              console.log('event.attachments :: ', attachment);
+              if (attachment.type == 'image') {
+                if (attachment.payload.sticker_id) {
                   messageBody = "Sorry currently we are not serving stickers! :(";
                 } else {
                   messageBody = "Sorry currently we are not serving images! :(";
                 }
-                
-              } else if(attachment.type == 'audio'){
+
+              } else if (attachment.type == 'audio') {
                 messageBody = "Sorry currently we are not serving audio! :(";
-              } else if(attachment.type == 'video'){
+              } else if (attachment.type == 'video') {
                 messageBody = "Sorry currently we are not serving vedio! :(";
               }
             });
-            
+
           }
 
           messageData = {
